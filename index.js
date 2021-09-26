@@ -1,14 +1,11 @@
-const koa = require('koa')
-const koaRouter = require('koa-router')
+const koa = require('koa');
+const dotenv = require('dotenv');
 
-const app = new koa()
-const router = new koaRouter()
+const app = new koa();
+dotenv.config();
 
-router.get('home', '/', (context) => {
-  context.body = "Welcome to my Koa.js Server"
-})
-
-app.use(router.routes())
-  .use(router.allowedMethods())
+var movies = require('./routes/movies');
+app.use(movies.routes())
+  .use(movies.allowedMethods());
 
 app.listen(3000);
