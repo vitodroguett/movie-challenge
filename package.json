@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/vitodroguett/movie-challenge#readme",
   "dependencies": {
-    "koa": "^2.13.3"
+    "koa": "^2.13.3",
+    "koa-router": "^10.1.1"
   }
 }

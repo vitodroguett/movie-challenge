@@ -1,8 +1,14 @@
-const Koa = require('koa');
-const app = new Koa();
+const koa = require('koa')
+const koaRouter = require('koa-router')
 
-app.use(async ctx => {
-  ctx.body = 'Hello World';
-});
+const app = new koa()
+const router = new koaRouter()
+
+router.get('home', '/', (context) => {
+  context.body = "Welcome to my Koa.js Server"
+})
+
+app.use(router.routes())
+  .use(router.allowedMethods())
 
 app.listen(3000);
