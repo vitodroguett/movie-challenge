@@ -1,31 +1,17 @@
 const koaRouter = require('koa-router');
-const axios = require("axios");
-const joi = require('joi')
-const validate = require('koa-joi-validate')
+const movieService = require("../services/movies");
+const validations = require("./validationMiddleware");
 
 var router = koaRouter({
     prefix: '/movies'
 });
 
-const getValidate = validate({
-    headers: {
-        "year": joi.number()
-    },
-    query: {
-        s: joi.string().required()
-    },
-    params: {
-        // URL path parameters Joi validation object
-    },
-    body: {
-        // POST body Joi validation object
-    }
-})
-
-router.get('/', getValidate, async ctx => {
-    let movies = await axios.get(process.env.URL_API + "&s=" + ctx.request.query.s + "&y=" + ctx.request.headers.year);
-    ctx.body = movies.data;
+router.get('/search', validations.sarchValidate, async ctx => {
+    ctx.body = await movieService.search({ s: ctx.request.query.s, year: ctx.headers.year });
 });
 
+router.get('/', validations.getValidate, async ctx => {
+    ctx.body = await movieService.get({ page: ctx.headers.page });
+});
 
 module.exports = router;
