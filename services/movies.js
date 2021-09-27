@@ -5,15 +5,18 @@ const search = async (request) => {
     try {
 
         let moviesOMDb = await axios.get(process.env.URL_API + "&s=" + request.s + "&y=" + request.year);
+        const moviesAdded = [];
 
-        const moviesAdded = await Promise.all(moviesOMDb.data.Search.map(async element => {
-            const exist = await movieRepository.exist(element);
-            if (!exist) {
-                const movieOMDb = await axios.get(process.env.URL_API + "&i=" + element.imdbID);
-                const movie = await movieRepository.add(movieOMDb.data);
-                return movie;
-            }
-        }));
+        if (moviesOMDb !== undefined) {
+            await Promise.all(moviesOMDb.data.Search.map(async element => {
+                const exist = await movieRepository.exist(element);
+                if (!exist) {
+                    const movieOMDb = await axios.get(process.env.URL_API + "&i=" + element.imdbID);
+                    const movie = await movieRepository.add(movieOMDb.data);
+                    moviesAdded.push(movie);
+                }
+            }));
+        }
 
         return moviesAdded;
 

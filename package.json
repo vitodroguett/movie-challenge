@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/vitodroguett/movie-challenge#readme",
   "dependencies": {
+    "@sentry/node": "^6.13.2",
     "axios": "^0.21.4",
     "dotenv": "^10.0.0",
     "koa": "^2.13.3",
