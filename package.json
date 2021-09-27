@@ -23,7 +23,9 @@
     "koa": "^2.13.3",
     "koa-body": "^4.2.0",
     "koa-joi-validate": "^0.5.1",
+    "koa-logger": "^3.2.1",
     "koa-router": "^10.1.1",
     "mongoose": "^6.0.7"
-  }
+  },
+  "devDependencies": {}
 }
