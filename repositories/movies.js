@@ -40,4 +40,8 @@ const get = async (params) => {
     }
 }
 
-module.exports = { add, exist, get }
+const findLike = async (params) => {
+    return await MovieModel.findOne({ Title: { $regex: '.*' + params.movie + '.*' } }).limit(1);
+}
+
+module.exports = { add, exist, get, findLike }

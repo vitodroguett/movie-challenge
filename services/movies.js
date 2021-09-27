@@ -30,4 +30,19 @@ const get = async (request) => {
     }
 }
 
-module.exports = { search, get }
+const replace = async (request) => {
+    try {
+        const movie = await movieRepository.findLike(request);
+        if (movie) {
+            const searchRegExp = new RegExp(request.find, "gi");
+            const replaceWith = request.replace;
+            console.log(movie.Plot.replace(searchRegExp, replaceWith));
+            return movie.Plot.replace(searchRegExp, replaceWith);
+        }
+        return "";
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+module.exports = { search, get, replace }
