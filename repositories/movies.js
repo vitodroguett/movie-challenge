@@ -24,10 +24,11 @@ const get = async (params) => {
         const total = await MovieModel.count();
         let pag_by = 5;
         if (total > pag_by) {
-            const limit = pag_by * (!isNaN(params.page) ? params.page : 1);
+            const page = (!isNaN(params.page) ? params.page : 1);
+            const limit = pag_by * page;
             const skip = limit - pag_by;
-            const movies = await MovieModel.find().skip(skip).limit(limit);
-            return { movies, total, page: params.page };
+            const movies = await MovieModel.find().skip(skip).limit(pag_by);
+            return { movies, total, page };
 
         } else {
             return movies;
