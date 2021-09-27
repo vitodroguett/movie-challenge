@@ -5,10 +5,9 @@ dotenv.config();
 
 const connection = require('./repositories/connection');
 
-app.context.db = connection;
+// app.context.db = connection;
 
 var movies = require('./routes/movies');
-
 app.use(movies.routes())
   .use(movies.allowedMethods());
 

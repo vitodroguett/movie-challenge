@@ -21,7 +21,7 @@ const getValidate = validate({
         page: joi.number()
     },
     query: {
-        
+
     },
     params: {
         // URL path parameters Joi validation object
@@ -31,4 +31,21 @@ const getValidate = validate({
     }
 });
 
-module.exports = { sarchValidate, getValidate }
+const replaceValidate = validate({
+    headers: {
+
+    },
+    query: {
+
+    },
+    params: {
+        // URL path parameters Joi validation object
+    },
+    body: {
+        movie: joi.string().required(),
+        find: joi.string().required(),
+        replace: joi.string().required()
+    }
+});
+
+module.exports = { sarchValidate, getValidate, replaceValidate }
