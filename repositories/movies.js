@@ -4,8 +4,7 @@ const MovieModel = require("../models/movie");
 const add = async (params) => {
     try {
         const movie = new MovieModel(params);
-        await movie.save();
-        console.log("saved");
+        return await movie.save();
     } catch (error) {
         console.error(error);
     }
@@ -14,7 +13,6 @@ const add = async (params) => {
 const exist = async (params) => {
     try {
         const exist = await MovieModel.exists({ imdbID: params.imdbID });
-        console.log(`exist: ${exist}`);
         return exist;
     } catch (error) {
         console.error(error);
@@ -28,7 +26,6 @@ const get = async (params) => {
         if (total > pag_by) {
             const limit = pag_by * (!isNaN(params.page) ? params.page : 1);
             const skip = limit - pag_by;
-            console.log(limit);
             const movies = await MovieModel.find().skip(skip).limit(limit);
             return { movies, total, page: params.page };
 
